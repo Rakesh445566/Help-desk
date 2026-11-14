@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP Help Desk - Mana Andhra Ki Oka Help</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: Arial;
+  margin: 0;
+  padding: 15px;
+  text-align: center;
+  background: linear-gradient(135deg, #FFF3E0, #FFCCBC, #BBDEFB);
+}
+.top {
+  background: white;
+  padding: 22px;
+  border-radius: 25px;
+  max-width: 620px;
+  margin: 10px auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.top h1 {
+  font-size: 30px;
+  background: linear-gradient(90deg, #FF512F, #DD2476, #4A00E0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.box {
+  padding: 18px;
+  border-radius: 25px;
+  margin: 14px auto;
+  max-width: 620px;
+  color: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  text-align: left;
+}
+.c1 { background: linear-gradient(135deg, #FF512F, #F09819); }
+.c2 { background: linear-gradient(135deg, #11998E, #38EF7D); }
+.c3 { background: linear-gradient(135deg, #8E2DE2, #4A00E0); }
+.c4 { background: linear-gradient(135deg, #2193B0, #6DD5ED); }
+.c5 { background: linear-gradient(135deg, #F7971E, #FFD200); color:#333; }
+.c6 { background: linear-gradient(135deg, #FC4A1A, #F7B733); }
+button {
+  background: white;
+  color: #333;
+  border: none;
+  padding: 11px 15px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+button:active { transform: scale(0.95); }
+input, select, textarea {
+  width: 96%;
+  padding: 12px;
+  border-radius: 15px;
+  border: none;
+  margin: 6px 0;
+  font-size: 15px;
+}
+.card {
+  background: white;
+  color: #333;
+  padding: 15px;
+  border-radius: 20px;
+  margin: 10px 0;
+  text-align: left;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.tag { display: inline-block; padding: 5px 10px; border-radius: 20px; color: white; font-size: 13px; font-weight: bold; }
+.red { background: #FF3B30; } .orange { background: #FF9500; } .blue { background: #007AFF; } .green { background: #34C759; } .purple { background: #AF52DE; }
+.small { background: white; color: #333; padding: 8px 11px; font-size: 13px; }
+.distBtn { background:#FFE0B2; font-size:13px; }
+.catBtn { background:#E1BEE7; }
+.footer { font-weight: bold; color: #333; margin: 20px; }
+.helpCount { font-size: 18px; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h1>🤝 AP HELP DESK 🆘</h1>
+  <p><b>Mana Andhra Ki Oka Help!</b><br>Help kavali ante adugu. Help cheyali ante ivvu. Anantapur nundi Srikakulam varaku!</p>
+  <p class="helpCount">📊 Total Helps: <b id="totalCount">0</b> | ✅ Solved: <b id="solvedCount">0</b> | ❤️ Helpers: <b id="helperCount">0</b></p>
+  <button onclick="showAll()">🌍 AP Motham</button>
+  <button onclick="showMine()">👑 Naa Helps</button>
+  <button onclick="showNeedHelp()">🙏 Help Kavali</button>
+  <button onclick="showGiveHelp()">💪 Help Istha</button>
+</div>
+
+<div class="box c5">
+  <h2>📍 Nee District - Nee Category</h2>
+  <div id="distList"></div>
+  <p id="nowFilter"><b>Ippudu:</b> AP Motham - Anni Helps</p>
+  <p><b>Category:</b></p>
+  <button class="catBtn" onclick="filterCat('ALL')">🌍 Anni</button>
+  <button class="catBtn" onclick="filterCat('🩸 Blood Kavali')">🩸 Blood</button>
+  <button class="catBtn" onclick="filterCat('💼 Job Kavali')">💼 Job</button>
+  <button class="catBtn" onclick="filterCat('📚 Books / Chaduvu')">📚 Books</button>
+  <button class="catBtn" onclick="filterCat('🍛 Food / Aakali')">🍛 Food</button>
+  <button class="catBtn" onclick="filterCat('💊 Medicines')">💊 Medicines</button>
+  <button class="catBtn" onclick="filterCat('🚧 Road Problem')">🚧 Road</button>
+  <button class="catBtn" onclick="filterCat('👴 Pedda Vallaki Help')">👴 Pedda Vallu</button>
+  <button class="catBtn" onclick="filterCat('💰 Chinna Dabbu Help')">💰 Dabbu</button>
+</div>
+
+<div class="box c1">
+  <h2>📝 Help Adugu / Help Ivu - Ikkada Rayi</h2>
+  <select id="helpType">
+    <option value="NEED">🙏 Naku Help Kavali</option>
+    <option value="GIVE">💪 Nenu Help Chestha</option>
+  </select>
+  <select id="district">
+    <option>Anantapur</option><option>Anakapalli</option><option>Alluri Sitharama Raju</option><option>Annamayya</option><option>Bapatla</option><option>Chittoor</option><option>Dr. B.R. Ambedkar Konaseema</option><option>East Godavari</option><option>Eluru</option><option>Guntur</option><option>Kakinada</option><option>Krishna</option><option>Kurnool</option><option>Nandyal</option><option>NTR (Vijayawada)</option><option>Palnadu</option><option>Parvathipuram Manyam</option><option>Prakasam</option><option>Sri Potti Sriramulu Nellore</option><option>Sri Sathya Sai</option><option>Srikakulam</option><option>Tirupati</option><option>Visakhapatnam</option><option>Vizianagaram</option><option>West Godavari</option><option>YSR Kadapa</option>
+  </select>
+  <select id="category">
+    <option>🩸 Blood Kavali</option><option>💼 Job Kavali</option><option>📚 Books / Chaduvu</option><option>🍛 Food / Aakali</option><option>💊 Medicines</option><option>🚧 Road Problem</option><option>👴 Pedda Vallaki Help</option><option>💰 Chinna Dabbu Help</option><option>🤝 Inkemianna Help</option>
+  </select>
+  <input id="name" placeholder="👤 Nee Peru - Ex: Rakesh (Peru lekapothe 'Oka Friend' ani rayi)">
+  <input id="place" placeholder="📍 Place / Mandal - Ex: Anantapur, Clock Tower">
+  <input id="phone" placeholder="📞 Phone Number (Optional - Help chese vallu call chestharu)">
+  <textarea id="desc" placeholder="Em help kavali / em help chesthav? Vivaramga rayi... Ex: Naku O+ blood kavali, Anantapur Govt Hospital lo"></textarea>
+  <button onclick="addHelp()">🚀 Help Post Chey</button>
+  <p id="msg"></p>
+  <p style="font-size:13px;">⚠️ Note: Nee phone number pettakudadu anukunte, khaali vadilesey. Peru kuda fake pettachu. Help ye mukhyam!</p>
+</div>
+
+<div class="box c2">
+  <h2>🔥 AP Lo Helps - Ippudu Live!</h2>
+  <p>Help chese vallu "Nenu Help Chestha" nokkithe, vaallaki oka ❤️ vasthundi!</p>
+  <div id="helpList"></div>
+</div>
+
+<div class="box c6">
+  <h2>🏆 Top Helpers - AP Heroes!</h2>
+  <p id="topHelpers">Inka helpers leru KING! Modati helper nuvve avvu!</p>
+  <button onclick="becomeHelper()">❤️ Nenu Helper Avutha!</button>
+  <p id="helperMsg"></p>
+</div>
+
+<div class="box c3">
+  <h2>📲 AP Motham Share Chey</h2>
+  <button onclick="shareApp()">📲 WhatsApp lo Share</button>
+  <p id="shareMsg"></p>
+</div>
+
+<div class="box c4">
+  <h2>🆘 AP Emergency</h2>
+  <p>🚑 Ambulance: <b>108</b> | 🚓 Police: <b>100</b> | 🔥 Fire: <b>101</b><br>🏛️ AP Helpline: <b>1100</b> | 👩 Women Help: <b>181</b> | 🧒 Child Help: <b>1098</b></p>
+</div>
+
+<p class="footer">Made with ❤️ by Muthyala Rakesh | Anantapur to AP Motham Kosam<br>Help chese prathi okkaru oka HERO!</p>
+
+<script>
+let districts = ["Anantapur","Anakapalli","Alluri Sitharama Raju","Annamayya","Bapatla","Chittoor","Dr. B.R. Ambedkar Konaseema","East Godavari","Eluru","Guntur","Kakinada","Krishna","Kurnool","Nandyal","NTR (Vijayawada)","Palnadu","Parvathipuram Manyam","Prakasam","Sri Potti Sriramulu Nellore","Sri Sathya Sai","Srikakulam","Tirupati","Visakhapatnam","Vizianagaram","West Godavari","YSR Kadapa"];
+let currentFilter = "ALL";
+let currentCat = "ALL";
+let currentDist = "ALL";
+let helps = [];
+let helpers = 0;
+try { helps = JSON.parse(localStorage.getItem("apHelpDesk") || "[]"); helpers = parseInt(localStorage.getItem("apHelpers") || "0"); } catch(e) { helps = []; }
+
+let distHtml = "";
+districts.forEach(d => { distHtml += "<button class='distBtn' onclick=\"setDist('" + d + "')\">" + d + "</button>"; });
+document.getElementById("distList").innerHTML = distHtml;
+
+function setDist(d) {
+  currentDist = d;
+  document.getElementById("district").value = d;
+  document.getElementById("nowFilter").innerHTML = "<b>Ippudu:</b> " + d + " - " + currentCat;
+  showHelps();
+}
+function filterCat(c) {
+  currentCat = c;
+  document.getElementById("nowFilter").innerHTML = "<b>Ippudu:</b> " + (currentDist==="ALL"?"AP Motham":currentDist) + " - " + c;
+  showHelps();
+}
+function showAll() { currentFilter="ALL"; currentDist="ALL"; currentCat="ALL"; document.getElementById("nowFilter").innerHTML="<b>Ippudu:</b> AP Motham - Anni Helps"; showHelps(); }
+function showMine() { currentFilter="MINE"; showHelps(); }
+function showNeedHelp() { currentFilter="NEED"; showHelps(); }
+function showGiveHelp() { currentFilter="GIVE"; showHelps(); }
+
+function addHelp() {
+  let type = document.getElementById("helpType").value;
+  let dist = document.getElementById("district").value;
+  let cat = document.getElementById("category").value;
+  let name = document.getElementById("name").value || "Oka Friend";
+  let place = document.getElementById("place").value;
+  let phone = document.getElementById("phone").value;
+  let desc = document.getElementById("desc").value;
+  if(!place || !desc) { alert("Place mariyu Help vivaram rayi KING!"); return; }
+  let h = { id: Date.now(), type: type, dist: dist, cat: cat, name: name, place: place, phone: phone, desc: desc, hearts: 0, solved: false, mine: true };
+  helps.unshift(h);
+  saveAndShow();
+  document.getElementById("msg").innerText = "✅ Help post aindi KING! " + dist + " lo evaraina chustharu!";
+  document.getElementById("place").value=""; document.getElementById("desc").value=""; document.getElementById("phone").value="";
+}
+function saveAndShow() {
+  localStorage.setItem("apHelpDesk", JSON.stringify(helps));
+  localStorage.setItem("apHelpers", helpers);
+  showHelps();
+}
+function giveHeart(id) {
+  let h = helps.find(x => x.id===id);
+  if(h) { h.hearts++; }
+  saveAndShow();
+}
+function markSolved(id) {
+  let h = helps.find(x => x.id===id);
+  if(h) { h.solved=true; alert("🎉 GETT! Help solve aindi! Oka life marindhi!"); }
+  saveAndShow();
+}
+function deleteHelp(id) { helps = helps.filter(x=>x.id!==id); saveAndShow(); }
+function becomeHelper() {
+  helpers++;
+  localStorage.setItem("apHelpers", helpers);
+  document.getElementById("helperMsg").innerText = "❤️ Nuvvu Helper ayyav KING! AP ki nuvvu oka HERO!";
+  showHelps();
+}
+function showHelps() {
+  let list = document.getElementById("helpList");
+  let show = helps;
+  if(currentFilter==="MINE") show = show.filter(x=>x.mine);
+  if(currentFilter==="NEED") show = show.filter(x=>x.type==="NEED");
+  if(currentFilter==="GIVE") show = show.filter(x=>x.type==="GIVE");
+  if(currentDist!=="ALL") show = show.filter(x=>x.dist===currentDist);
+  if(currentCat!=="ALL") show = show.filter(x=>x.cat===currentCat);
+
+  document.getElementById("totalCount").innerText = helps.length;
+  document.getElementById("solvedCount").innerText = helps.filter(x=>x.solved).length;
+  document.getElementById("helperCount").innerText = helpers;
+  document.getElementById("topHelpers").innerText = helpers>0 ? "AP lo " + helpers + " mandi Helpers unnaru! Andaru Heroes ye!" : "Inka helpers leru KING! Modati helper nuvve avvu!";
+
+  if(show.length===0) {
+    list.innerHTML = "<div class='card'>Inka helps levu KING! Modati help nuvve pettu! Anantapur nundi start cheddam!</div>";
+    return;
+  }
+  let html="";
+  show.forEach(h=>{
+    let isNeed = h.type==="NEED";
+    let tagColor = isNeed ? "red" : "green";
+    let tagText = isNeed ? "🙏 HELP KAVALI" : "💪 HELP ISTHA";
+    html += "<div class='card'>";
+    html += "<span class='tag " + tagColor + "'>" + tagText + "</span> ";
+    html += "<span class='tag blue'>" + h.cat + "</span><br><br>";
+    html += "<b>👤 " + h.name + "</b> - 📍 " + h.dist + ", " + h.place + "<br>";
+    html += "<p>" + h.desc + "</p>";
+    if(h.phone) html += "<p>📞 Phone: <b>" + h.phone + "</b></p>";
+    if(h.solved) html += "<span class='tag green'>✅ SOLVED - HELP ANDINDHI</span><br><br>";
+    html += "<button class='small' onclick='giveHeart(" + h.id + ")'>❤️ Nenu Help Chestha (" + h.hearts + ")</button>";
+    html += "<button class='small' onclick='markSolved(" + h.id + ")'>✅ Solved</button>";
+    html += "<button class='small' onclick='deleteHelp(" + h.id + ")'>🗑️ Delete</button>";
+    html += "</div>";
+  });
+  list.innerHTML = html;
+}
+showHelps();
+function shareApp() {
+  let txt = "🤝 AP HELP DESK chudu! Help kavali ante adugu, help cheyali ante ivvu! Anantapur nundi AP motham kosam! " + window.location.href;
+  window.open("https://wa.me/?text=" + encodeURIComponent(txt));
+  document.getElementById("shareMsg").innerText = "Share window open aindi KING!";
+}
+</script>
+</body>
+</html>
